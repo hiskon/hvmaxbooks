@@ -19,28 +19,65 @@
         }
 
         .navbar-gradient {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
         }
 
-        .hero-gradient-side {
-            background: linear-gradient(to right, #141414 0%, rgba(20,20,20,0.3) 50%, transparent 100%);
+        /* Ekran kapsayıcısı */
+        .screen-container {
+            position: relative;
+            width: 95%;
+            max-width: 1400px;
+            margin: 0 auto;
+            /* Derinlik hissi için gölge */
+            filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.7));
+            border-radius: 40px; 
+            overflow: hidden;
         }
 
-        .hero-gradient-bottom {
-            background: linear-gradient(to top, #141414 0%, transparent 100%);
+        /* Video Paneli - İçe Kavisli (Concave) ve Yumuşak Köşeli */
+        .screen-panel {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            z-index: 5;
+            overflow: hidden;
+            border-radius: 40px; 
+            
+            /* Alt kenarı içe doğru (yukarı) kavisli yapan maskeleme */
+            clip-path: polygon(
+                0% 0%, 100% 0%, 
+                100% 100%, 
+                92% 95%, 82% 91%, 70% 88.5%, 60% 87.5%, 50% 87%, 40% 87.5%, 30% 88.5%, 18% 91%, 8% 95%,
+                0% 100%
+            );
         }
 
-        /* Modal animasyonu */
-        .modal-fade-in {
-            animation: fadeIn 0.3s ease-out forwards;
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 80px;
+            padding-bottom: 60px;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #141414 100%);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Video Üzerindeki Logo - str.png için ayarlandı */
+        .hero-logo {
+            position: absolute;
+            bottom: 22%; 
+            left: 7%;
+            width: 25%;
+            max-width: 280px;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.9));
+            z-index: 15;
+            pointer-events: none;
+            opacity: 0.95;
         }
 
-        /* Scrollbar Gizleme */
+        /* Scrollbar Ayarları */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -70,7 +107,7 @@
                 </span>
             </div>
             <div class="hidden md:flex gap-5 text-sm text-gray-300 font-medium">
-                <span class="text-white cursor-pointer">Ana Sayfa</span>
+                <span class="text-white cursor-pointer underline underline-offset-8 decoration-red-600">Ana Sayfa</span>
                 <span class="hover:text-gray-300 cursor-pointer">Kitaplar</span>         
                 <span class="hover:text-gray-300 cursor-pointer">Listem</span>
             </div>
@@ -79,196 +116,87 @@
             <i data-lucide="search" class="w-5 h-5 cursor-pointer"></i>
             <i data-lucide="bell" class="w-5 h-5 cursor-pointer"></i>
             <div class="flex items-center gap-2 cursor-pointer group">
-                <img src="https://i.pinimg.com/564x/1b/a2/e6/1ba2e6d1d4874546c70c91f1024e17fb.jpg" alt="Profil" class="w-8 h-8 rounded" />
+                <img src="https://i.pinimg.com/564x/1b/a2/e6/1ba2e6d1d4874546c70c91f1024e17fb.jpg" alt="Profil" class="w-8 h-8 rounded shadow-sm border border-white/10" />
                 <i data-lucide="chevron-down" class="w-4 h-4"></i>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="relative h-[90vh] w-full">
-        <div class="absolute inset-0">
-            <!-- Video Arkaplan -->
-            <video id="hero-video" class="w-full h-full object-cover" autoplay loop muted playsinline>
-                <source src="Stranger Things izlemenizi bekliyor Netflix Resmi Sitesi.mp4" type="video/mp4">
-            </video>
-            <div class="absolute inset-0 hero-gradient-side"></div>
-            <div class="absolute inset-0 hero-gradient-bottom"></div>
-        </div>
+    <div class="hero-section">
+        <div class="screen-container">
+            <div class="screen-panel">
+                <video id="hero-video" class="w-full h-full object-cover" autoplay loop muted playsinline>
+                    <source src="Stranger Things izlemenizi bekliyor Netflix Resmi Sitesi.mp4" type="video/mp4">
+                </video>
+                
+                <!-- Yerel görsel str.png buraya eklendi -->
+                <img src="str.png" 
+                     alt="Stranger Things Logo" 
+                     class="hero-logo"
+                     onerror="this.style.display='none'">
 
-        <div class="absolute top-[12%] left-4 md:left-12 max-w-xl space-y-4 z-20">
-            <div class="flex flex-col gap-2">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Stranger_Things_logo.png/640px-Stranger_Things_logo.png" alt="Logo" class="w-64 md:w-80 drop-shadow-2xl" />
-                <div class="flex items-center gap-2 mt-2">
-                   <span class="text-[#46d369] font-bold text-sm">%98 Eşleşme</span>
-                   <span class="text-gray-300 text-sm">2025</span>
-                   <span class="border border-gray-500 px-1 text-xs text-gray-300">18+</span>
-                   <span class="text-gray-300 text-sm">5 Sezon</span>
-                </div>
-            </div>
-            <h2 class="text-xl md:text-2xl font-bold text-white drop-shadow-md">5. Sezon Geldi</h2>
-            <p class="text-sm md:text-base text-white/90 drop-shadow-md max-w-md leading-relaxed">
-                Hawkins'in kaderi pamuk ipliğine bağlı. Upside Down ile gerçek dünya arasındaki duvar inceliyor. Eleven ve arkadaşları, son savaş için bir araya geliyor.
-            </p>
-            <div class="flex gap-3 pt-2">
-                <button class="flex items-center gap-2 bg-white text-black px-6 py-2 rounded font-bold hover:bg-white/80 transition shadow-lg">
-                    <i data-lucide="play" class="w-5 h-5 fill-black text-black"></i> Oynat
-                </button>
-                <button class="flex items-center gap-2 bg-[#6d6d6eb3] text-white px-6 py-2 rounded font-bold hover:bg-[#6d6d6eb3]/70 transition shadow-lg">
-                    <i data-lucide="info" class="w-5 h-5"></i> Detaylar
+                <!-- Ses Kontrol Butonu -->
+                <button id="mute-btn" class="absolute bottom-12 right-10 border border-white/30 rounded-full p-3 bg-black/60 cursor-pointer hover:bg-black/80 transition z-20">
+                    <i id="mute-icon" data-lucide="volume-x" class="w-6 h-6"></i>
                 </button>
             </div>
-        </div>
-
-        <div class="absolute bottom-16 left-4 md:left-12 flex items-center gap-10 z-30">
-           <div class="flex flex-col items-center group cursor-pointer text-white">
-             <i data-lucide="plus" class="w-8 h-8 drop-shadow-lg group-hover:scale-110 transition"></i>
-             <span class="text-[10px] mt-1 font-bold uppercase tracking-wider">Listem</span>
-           </div>
-           <div class="flex flex-col items-center group cursor-pointer text-white">
-             <i data-lucide="thumbs-up" class="w-8 h-8 drop-shadow-lg group-hover:scale-110 transition"></i>
-             <span class="text-[10px] mt-1 font-bold uppercase tracking-wider">Puanla</span>
-           </div>
-           <div class="flex flex-col items-center group cursor-pointer text-white">
-             <i data-lucide="monitor" class="w-8 h-8 drop-shadow-lg group-hover:scale-110 transition"></i>
-             <span class="text-[10px] mt-1 font-bold uppercase tracking-wider">Paylaş</span>
-           </div>
-        </div>
-
-        <div class="absolute right-0 bottom-16 flex items-center gap-4 z-30">
-           <button id="mute-btn" class="border border-white/50 rounded-full p-2 bg-black/40 cursor-pointer hover:bg-black/60 transition">
-             <i id="mute-icon" data-lucide="volume-x" class="w-5 h-5"></i>
-           </button>
-           <div class="bg-[#141414]/60 border-l-4 border-white py-1 pl-2 pr-12 text-lg font-bold">18+</div>
         </div>
     </div>
 
-    <!-- Episodes Section -->
-    <div class="px-4 md:px-12 pb-20 relative z-10 bg-[#141414]">
-        <h3 class="text-2xl font-bold text-white py-6 border-b border-gray-800">Bölümler</h3>
+    <!-- Bölümler Bölümü -->
+    <div class="px-4 md:px-12 pb-20 relative z-10 bg-[#141414] mt-20">
+        <h3 class="text-2xl font-bold text-white py-6 border-b border-gray-800 flex items-center gap-2">
+            <i data-lucide="layers" class="w-6 h-6 text-purple-500"></i> Bölümler
+        </h3>
         <div id="episodes-container" class="flex flex-col">
-            <!-- Bölümler JavaScript ile buraya eklenecek -->
-        </div>
-    </div>
-
-    <!-- Episode Content Modal -->
-    <div id="episode-modal" class="hidden fixed inset-0 bg-black z-[100] flex flex-col overflow-y-auto modal-fade-in">
-        <button id="close-modal" class="fixed top-10 right-10 text-gray-400 hover:text-white z-[110] transition cursor-pointer p-2 bg-black/50 rounded-full">
-            <i data-lucide="x" class="w-10 h-10"></i>
-        </button>
-
-        <div class="max-w-4xl mx-auto w-full p-10 md:p-20 flex flex-col">
-            <div class="mt-12 mb-10 border-l-4 border-purple-600 pl-6">
-              <h1 id="modal-title" class="text-4xl md:text-7xl font-black tracking-tighter bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent italic uppercase drop-shadow-2xl leading-none">
-                Bölüm Başlığı
-              </h1>
-              <p id="modal-info" class="text-gray-500 mt-4 text-lg font-medium tracking-widest uppercase"></p>
-            </div>
-
-            <div id="modal-content" class="w-full prose prose-invert max-w-none pb-20 text-white leading-relaxed font-light space-y-6">
-               <!-- İçerik buraya gelecek -->
-            </div>
+            <!-- JavaScript ile doldurulur -->
         </div>
     </div>
 
     <footer class="max-w-4xl mx-auto py-12 px-4 text-gray-500 text-sm">
-         <div class="flex gap-4 mb-4 text-xl">
+         <div class="flex gap-4 mb-4 text-xl items-center">
              <span class="font-bold text-blue-400 italic">HV Max</span>
              <span class="font-serif text-purple-600 italic">Books</span>
          </div>
-         <div>© 2026 HV Max Books. Tüm bölümler özel içeriklerle hazırlanmıştır.</div>
+         <div>© 2026 HV Max Books. Tüm hakları saklıdır.</div>
     </footer>
 
     <script>
-        // Lucide İkonlarını Başlat
         lucide.createIcons();
 
-        // Bölüm Verileri
-        const episodes = [
-            {
-                id: 1,
-                title: "1. Bölüm: Arayış",
-                duration: "22 Sayfa",
-                description: "Kasım 1987. Ekip Baş Aşağı Dünya'ya ulaşıp Vecna'nın saklandığı yeri bulmak için askerî kontrol noktasından kaçmayı başarır.",
-                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUm2gVEhuhzTZIalBaHnDQKzWvEUzIyVXQkmi_av6Zyojb-pYfnZGCXp_mTbyZOckdY_GiDGCWIB-sjIFRCYAwxGF1W77tokOOuKgMO4RwKrTHHKE1H_47pc.jpg?r=f18",
-                content: "" 
-            },
-            {
-                id: 2,
-                title: "2. Bölüm: Holly Wheeler'ın Ortadan Kayboluşu",
-                duration: "16 Sayfa",
-                description: "Wheeler'ların evine yapılan vahşi saldırının ardından Mike ve Nancy sır saklamanın bedeliyle yüzleşmek zorunda kalır.",
-                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABR2QvLZzCGs678t3Zd8OD4gwErxuLcb3hdm5X1bQa5JVf1v7KXv4PVORHjNoEyUlT3_hdXIF6nEDJp0xDIaxxvE1116sf7jt_WdJ8fEXSu4-CZzdlkHCn0ns.jpg?r=4c0",
-                content: ""
-            },
-            {
-                id: 3,
-                title: "3. Bölüm: Turnbow Tuzağı",
-                duration: "8 Sayfa",
-                description: "Vecna'nın bir sonraki hamlesi hakkında Will'in elde ettiği benzersiz ipucu, ekibe bir tuzak kurma fırsatı verir.",
-                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABeRxgpBo4oOYlKWcaqO2G1vqXs2r7qgO32smy2BlYbP-RnTUsvVQk2yxKdcvO0yc1Ogakvd0RH9__NgQH0m70odOdbQm-iMRW4ye5uR320D6Y_cMfkNuXTeE.jpg?r=0a8",
-                content: ""
-            },
-            {
-                id: 4,
-                title: "4. Bölüm: Büyücü",
-                duration: "19 Sayfa",
-                description: "Ordu kasabadaki kontrolünü sıkılaştırır. Mike, Lucas ve Robin cesaret dolu bir kaçış planlar.",
-                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUI-9Fg7Nn7z9FNNRKt6c-iOZwz6rFmamX984CfbL-42vT0cSsn-J2UHvVBQPXLSAGLVAPgbRfdvqlPutM6SD514kHzNhW8ErGAsoZltXkhCUNbn7ZKWwWMZ.jpg?r=5db",
-                content: ""
-            },
-            {
-                id: 5,
-                title: "5. Bölüm: Elektroşok",
-                duration: "28 Sayfa",
-                description: "Ekip, Will'in sürü bilincini tekrar ele geçirmesini sağlamak için heyecan verici bir plan yapar.",
-                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABcFKzv5BBu-4BvURuUpdQqsdJ5igOyY8zSyu5CDSB2LV1rpo89eNWlK4YTocTqm1hnv6rr4SEsc2lg_E3UvFneF4KXOSKShPuZ9iiR5zjG9TC70TKr5dOR2T.jpg?r=3a9",
-                content: "<p>5. Bölüm içeriği hazırlanıyor...</p>"
-            },
-            // Diğer bölümler benzer şekilde eklenebilir
-        ];
-
-        // Navbar Scroll Efekti
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-[#141414]');
-                navbar.classList.remove('navbar-gradient');
-            } else {
-                navbar.classList.remove('bg-[#141414]');
-                navbar.classList.add('navbar-gradient');
-            }
-        });
-
-        // Ses Aç/Kapat
         const video = document.getElementById('hero-video');
         const muteBtn = document.getElementById('mute-btn');
         const muteIcon = document.getElementById('mute-icon');
 
-        muteBtn.addEventListener('click', () => {
+        muteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             video.muted = !video.muted;
-            if (video.muted) {
-                muteIcon.setAttribute('data-lucide', 'volume-x');
-            } else {
-                muteIcon.setAttribute('data-lucide', 'volume-2');
-            }
-            lucide.createIcons(); // İkonu güncelle
+            const newIcon = video.muted ? 'volume-x' : 'volume-2';
+            muteIcon.setAttribute('data-lucide', newIcon);
+            lucide.createIcons();
         });
 
-        // Bölümleri Listele
+         const episodes = [
+            { id: 1, title: "1. Bölüm: Arayış", duration: "22 Sayfa", description: "Kasım 1987. Ekip Baş Aşağı Dünya'ya ulaşıp Vecna'nın saklandığı yeri bulmak için askerî kontrol noktasından kaçmayı başarır, ancak çok yakınlarındaki bir tehdidi gözden kaçırırlar.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUm2gVEhuhzTZIalBaHnDQKzWvEUzIyVXQkmi_av6Zyojb-pYfnZGCXp_mTbyZOckdY_GiDGCWIB-sjIFRCYAwxGF1W77tokOOuKgMO4RwKrTHHKE1H_47pc.jpg?r=f18" },
+            { id: 2, title: "2. Bölüm: Holly Wheeler'ın Kayboluşu", duration: "16 Sayfa", description: "Wheeler'ların evine yapılan vahşi saldırının ardından Mike ve Nancy sır saklamanın bedeliyle yüzleşmek zorunda kalırken, El ve Hopper bir kurtarma operasyonuna girişir.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABR2QvLZzCGs678t3Zd8OD4gwErxuLcb3hdm5X1bQa5JVf1v7KXv4PVORHjNoEyUlT3_hdXIF6nEDJp0xDIaxxvE1116sf7jt_WdJ8fEXSu4-CZzdlkHCn0ns.jpg?r=4c0" },
+            { id: 3, title: "3. Bölüm: Turnbow Tuzağı", duration: "8 Sayfa", description: "Vecna'nın bir sonraki hamlesi hakkında Will'in elde ettiği benzersiz ipucu, ekibe bir tuzak kurma fırsatı verir. Holly yeni ortamını keşfetmeye çalışır.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABeRxgpBo4oOYlKWcaqO2G1vqXs2r7qgO32smy2BlYbP-RnTUsvVQk2yxKdcvO0yc1Ogakvd0RH9__NgQH0m70odOdbQm-iMRW4ye5uR320D6Y_cMfkNuXTeE.jpg?r=0a8" },
+            { id: 4, title: "4. Bölüm: Büyücü", duration: "19 Sayfa", description: "Ordu kasabadaki kontrolünü sıkılaştırır. Mike, Lucas ve Robin cesaret dolu bir kaçış planlar. El, düşmanla karşı karşıya gelir.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUI-9Fg7Nn7z9FNNRKt6c-iOZwz6rFmamX984CfbL-42vT0cSsn-J2UHvVBQPXLSAGLVAPgbRfdvqlPutM6SD514kHzNhW8ErGAsoZltXkhCUNbn7ZKWwWMZ.jpg?r=5db" }
+        ];
+
         const container = document.getElementById('episodes-container');
         episodes.forEach(ep => {
             const div = document.createElement('div');
-            div.className = "flex items-center gap-5 p-5 border-b border-gray-800 hover:bg-[#333] transition cursor-pointer group";
+            div.className = "flex items-center gap-5 p-5 border-b border-gray-800 hover:bg-[#222] transition cursor-pointer group";
             div.innerHTML = `
-                <div class="text-2xl text-gray-400 font-bold w-6 text-center shrink-0">${ep.id}</div>
+                <div class="text-2xl text-gray-500 font-bold w-6 text-center group-hover:text-purple-500 transition">${ep.id}</div>
                 <div class="relative w-40 h-24 shrink-0 rounded overflow-hidden shadow-md">
                     <img src="${ep.image}" alt="${ep.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                         <i data-lucide="play" class="w-8 h-8 fill-white text-white"></i>
                     </div>
                 </div>
-                <div class="flex flex-col justify-center w-full text-left">
+                <div class="flex-1">
                     <div class="flex justify-between items-center mb-1">
                         <h4 class="text-base font-bold text-gray-100 group-hover:text-white transition">${ep.title}</h4>
                         <span class="text-base font-medium text-gray-100">${ep.duration}</span>
@@ -276,40 +204,13 @@
                     <p class="text-sm text-gray-400 leading-normal line-clamp-2 italic">${ep.description}</p>
                 </div>
             `;
-            div.addEventListener('click', () => handleEpisodeClick(ep));
+            div.onclick = () => {
+                if (ep.id <= 4) window.location.href = `bolum${ep.id}.html`;
+            };
             container.appendChild(div);
         });
-
-        // Bölüm Tıklama Mantığı
-        function handleEpisodeClick(ep) {
-            if (ep.id === 1) {
-                window.location.href = 'bolum1.html';
-            } else if (ep.id === 2) {
-                window.location.href = 'bolum2.html';
-            } else if (ep.id === 3) {
-                window.location.href = 'bolum3.html';
-            } else if (ep.id === 4) {
-                window.location.href = 'bolum4.html';
-            } else {
-                const modal = document.getElementById('episode-modal');
-                document.getElementById('modal-title').innerText = ep.title;
-                document.getElementById('modal-info').innerText = ep.duration + " • HV MAX BOOKS ÖZEL";
-                document.getElementById('modal-content').innerHTML = ep.content;
-                modal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden'; // Kaydırmayı engelle
-            }
-        }
-
-        // Modal Kapatma
-        document.getElementById('close-modal').addEventListener('click', () => {
-            const modal = document.getElementById('episode-modal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto'; // Kaydırmayı geri aç
-        });
-
-        // İlk ikon yüklemesi
+        
         lucide.createIcons();
     </script>
 </body>
 </html>
-
