@@ -9,45 +9,151 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@1,700&display=swap');
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #141414;
+            background-color: #000;
             color: white;
             overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
         }
 
-        .navbar-gradient {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+        /* --- ARKA PLAN SİSTEMİ --- */
+        .background-video-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            background-image: url('https://cdn.pixabay.com/photo/2022/10/14/20/10/way-7522066_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(45px) brightness(0.25);
+            transform: scale(1.1);
         }
 
-        /* Ekran kapsayıcısı */
+        .background-video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+            pointer-events: none;
+        }
+
+        /* Sol Üst Logo - Sabit */
+        .brand-logo {
+            position: absolute; 
+            top: 25px;
+            left: 40px;
+            z-index: 110;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .logo-text-main {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            background: linear-gradient(to right, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-style: italic;
+        }
+
+        .logo-text-sub {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #a855f7;
+            margin-left: 6px;
+            font-style: italic;
+        }
+
+        /* Navigasyon Kapsülü - Fixed */
+        .pill-navbar {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 12px 40px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            z-index: 100;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .pill-navbar a {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            transition: opacity 0.2s;
+            cursor: pointer;
+        }
+
+        .pill-navbar a:hover { opacity: 0.7; }
+
+        /* Sağ Disclaimer */
+        .nav-disclaimer {
+            position: absolute; 
+            top: 35px;
+            right: 40px;
+            font-size: 8px;
+            line-height: 1.2;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            pointer-events: none;
+            z-index: 90;
+            text-align: right;
+        }
+
+        /* --- CURVED MONITOR TASARIMI --- */
         .screen-container {
             position: relative;
             width: 95%;
             max-width: 1400px;
             margin: 0 auto;
-            filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.7));
-            border-radius: 40px; 
+            filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 1));
+            background: #000;
             overflow: hidden;
+            clip-path: polygon(
+                0% 5%, 1.5% 2%, 3% 1%, 5% 0%, 
+                95% 0%, 97% 1%, 98.5% 2%, 100% 5%, 
+                100% 95%, 98.5% 98%, 
+                90% 95%, 80% 91%, 70% 88.5%, 60% 87.5%, 50% 87%, 40% 87.5%, 30% 88.5%, 20% 91%, 10% 95%, 
+                1.5% 98%, 0% 95%
+            );
         }
 
-        /* Video Paneli - İçe Kavisli (Concave) */
         .screen-panel {
             position: relative;
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: #000;
             z-index: 5;
             overflow: hidden;
-            border-radius: 40px; 
-            clip-path: polygon(
-                0% 0%, 100% 0%, 
-                100% 100%, 
-                92% 95%, 82% 91%, 70% 88.5%, 60% 87.5%, 50% 87%, 40% 87.5%, 30% 88.5%, 18% 91%, 8% 95%,
-                0% 100%
-            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .hero-section {
@@ -56,187 +162,165 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding-top: 100px;
-            padding-bottom: 60px;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #141414 100%);
+            padding-top: 120px;
+            padding-bottom: 80px;
+            position: relative;
         }
 
         .hero-logo {
             position: absolute;
-            bottom: 22%; 
+            bottom: 25%; 
             left: 7%;
-            width: 25%;
-            max-width: 280px;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.9));
+            width: 28%;
+            max-width: 320px;
+            filter: drop-shadow(0 0 25px rgba(0,0,0,0.9));
             z-index: 15;
             pointer-events: none;
             opacity: 0.95;
         }
 
-        /* Navbar Disclaimer Yazısı */
-        .nav-disclaimer {
-            font-size: 9px;
-            line-height: 1.2;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.25);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            padding-left: 15px;
-            margin-left: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
+        /* YENİ: Görseldeki Seri Bilgi Kartı */
+        .series-overview-card {
+            width: 95%;
+            max-width: 1400px;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
         }
 
-        /* Final Yazısı Stili */
         .final-announcement {
-            margin-top: 2.5rem;
-            font-size: 1.5rem;
+            margin-top: 1rem;
+            font-size: 1.6rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.35em;
             color: #ffffff;
-            border-left: 4px solid #e50914; 
-            padding-left: 1.5rem;
+            border-left: 5px solid #e50914; 
+            padding-left: 1.8rem;
             opacity: 0.9;
-            text-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+            text-shadow: 0 0 20px rgba(229, 9, 20, 0.7);
             z-index: 20;
         }
 
-        /* Yatay Bölüm Kartları Stili */
-        .episodes-wrapper {
-            position: relative;
-            padding: 0 40px; /* Oklar için kenar boşluğu */
-        }
-
-        .episodes-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 1.5rem;
-            padding: 1rem 0;
-            scroll-behavior: smooth;
-            scrollbar-width: none; /* Firefox */
-        }
-        .episodes-scroll::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
-        }
-
-        .episode-card {
-            flex: 0 0 300px;
-            background: #1f1f1f;
+        /* Kart Stilleri */
+        .episode-card, .info-card {
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.3s ease, background 0.3s ease;
-            cursor: pointer;
-            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .episode-card:hover {
-            transform: scale(1.05);
-            background: #2a2a2a;
-            z-index: 10;
+        .episode-card:hover, .info-card:hover {
+            transform: scale(1.03) translateY(-4px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
-        .episode-card img {
-            width: 100%;
-            height: 170px;
-            object-fit: cover;
-        }
-
-        .duration-badge {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            background: rgba(0,0,0,0.7);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-        }
-
-        /* YENİ: Görsellerdeki Kapsül Tasarımlı Navigasyon Okları */
         .scroll-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 32px;
-            height: 100px; /* Dikey uzun yapı */
-            background: #2a2a2a; /* Görseldeki koyu gri tonu */
+            width: 36px;
+            height: 110px;
+            background: rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 40;
             cursor: pointer;
-            transition: background 0.2s ease, transform 0.2s ease, opacity 0.3s ease;
-            border-radius: 9999px; /* Tam kapsül şekli */
-            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.2s ease;
+            border-radius: 9999px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             opacity: 0.6;
         }
 
-        .scroll-arrow:hover {
-            background: #3a3a3a;
-            opacity: 1;
-            transform: translateY(-50%) scale(1.05);
-        }
+        .scroll-arrow:hover { background: rgba(255, 255, 255, 0.2); opacity: 1; }
 
-        .scroll-arrow:active {
-            transform: translateY(-50%) scale(0.95);
-        }
-
-        .arrow-left { left: 0; }
-        .arrow-right { right: 0; }
-
-        /* Scrollbar Ayarları */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #141414; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #444; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+        
+        @media (max-width: 768px) {
+            .series-overview-card { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 navbar-gradient px-4 md:px-12 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-8">
-            <div class="flex items-center cursor-pointer select-none">
-                <span class="text-2xl font-black tracking-tighter bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent italic">
-                    HV Max Books
-                </span>
-            </div>
-            <div class="hidden md:flex items-center gap-5 text-sm text-gray-300 font-medium">
-                <span class="text-white cursor-pointer underline underline-offset-8 decoration-red-600">Ana Sayfa</span>
-                <span class="hover:text-gray-300 cursor-pointer">Kitaplar</span>         
-                <span class="hover:text-gray-300 cursor-pointer">Listem</span>
-                
-                <div class="nav-disclaimer">
-                    BU BİR FAN SİTESİDİR. NETFLIX İLE BİR RESMİ BAĞI YOKTUR.<br>
-                    FANFICTION BÖLÜMLERDİR.
-                </div>
-            </div>
-        </div>
-        <div class="flex items-center gap-5 text-white">
-            <i data-lucide="search" class="w-5 h-5 cursor-pointer"></i>
-            <i data-lucide="bell" class="w-5 h-5 cursor-pointer"></i>
-            <div class="flex items-center gap-2 cursor-pointer group">
-                <img src="https://i.pinimg.com/564x/1b/a2/e6/1ba2e6d1d4874546c70c91f1024e17fb.jpg" alt="Profil" class="w-8 h-8 rounded shadow-sm border border-white/10" />
-                <i data-lucide="chevron-down" class="w-4 h-4"></i>
-            </div>
-        </div>
-    </nav>
+    <div class="background-video-wrapper">
+        <video autoplay loop muted playsinline id="bg-video">
+            <source src="Stranger Things izlemenizi bekliyor Netflix Resmi Sitesi.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="bg-overlay"></div>
+
+    <div class="brand-logo" onclick="window.scrollTo(0,0)">
+        <span class="logo-text-main">HV Max</span>
+        <span class="logo-text-sub">Books</span>
+    </div>
+
+    <div class="pill-navbar">
+        <a href="#hero-section">Tanıtım</a>
+        <a href="#episodes-section">Bölümler</a>
+        <a href="#more-section">Daha Fazlası</a>
+    </div>
+
+    <div class="nav-disclaimer">
+        BU BİR FAN SİTESİDİR. NETFLIX İLE BİR RESMİ BAĞI YOKTUR.<br>
+        FANFICTION BÖLÜMLERDİR.
+    </div>
 
     <!-- Hero Section -->
-    <div class="hero-section">
+    <div id="hero-section" class="hero-section">
         <div class="screen-container">
             <div class="screen-panel">
                 <video id="hero-video" class="w-full h-full object-cover" autoplay loop muted playsinline>
                     <source src="Stranger Things izlemenizi bekliyor Netflix Resmi Sitesi.mp4" type="video/mp4">
                 </video>
-                
-                <!-- str.png yerel görseli -->
                 <img src="str.png" alt="Stranger Things Logo" class="hero-logo" onerror="this.style.display='none'">
-
-                <!-- Ses Kontrol Butonu -->
-                <button id="mute-btn" class="absolute bottom-12 right-10 border border-white/30 rounded-full p-3 bg-black/60 cursor-pointer hover:bg-black/80 transition z-20">
+                <button id="mute-btn" class="absolute bottom-16 right-12 border border-white/30 rounded-full p-3 bg-black/60 cursor-pointer hover:bg-black/80 transition z-20">
                     <i id="mute-icon" data-lucide="volume-x" class="w-6 h-6"></i>
                 </button>
+            </div>
+        </div>
+
+        <!-- YENİ BİLGİ BLOĞU -->
+        <div class="series-overview-card">
+            <div>
+                <h1 class="text-3xl font-bold mb-3">Stranger Things</h1>
+                <div class="flex items-center gap-3 text-sm font-medium text-gray-400 mb-4">
+                    <span>2025</span>
+                    <span>•</span>
+                    <span>5 Sezon</span>
+                    <span>•</span>
+                    <span class="border border-gray-600 px-1 text-[10px]">18+</span>
+                    <span>•</span>
+                    <span>Bilim Kurgu</span>
+                    <span>•</span>
+                    <span>5.Sezon (Fanfic) siteden okunulabilir.</span>
+                </div>
+                <p class="text-white/80 leading-relaxed text-sm md:text-base max-w-2xl">
+                    Ufak bir kasabada küçük bir çocuk kaybolunca, gizli deneyler, korkutucu doğaüstü güçler ve tuhaf bir küçük kızın da parçası olduğu bir gizem ortaya çıkar.
+                </p>
+            </div>
+            <div class="border-l border-white/10 pl-8 hidden md:block">
+                <div class="mb-4">
+                    <span class="text-gray-500 text-xs font-bold block mb-1">Ana Karakterler:</span>
+                    <p class="text-sm text-white/90">Joyce,Hopper,Eleven,Dustin,Lucas,Will,Mike,Max</p>
+                </div>
+                <div>
+                    <span class="text-gray-500 text-xs font-bold block mb-1">Yaratıcılar:</span>
+                    <p class="text-sm text-white/90">The Duffer Brothers. 5.Sezon site yaratıcısı tarafından yeniden yazılıp telif sorunu olmayacak şekilde düzenlenmiştir. Diğer 4 sezonun scripti mevcut değildir. Reklam değildir ve Netflix ile bir bağ yoktur. </p>
+                </div>
             </div>
         </div>
 
@@ -245,44 +329,61 @@
         </div>
     </div>
 
-    <!-- Bölümler Bölümü -->
-    <div class="px-4 md:px-12 pb-20 relative z-10 bg-[#141414] mt-20">
-        <div class="flex items-center gap-4 mb-8">
-            <h3 class="text-3xl font-bold text-white">Bölümler</h3>
-            <div class="flex items-center bg-[#333] px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-[#444] transition border border-white/10">
-                <span>Stranger Things 5</span>
+    <!-- Bölümler -->
+    <div id="episodes-section" class="px-4 md:px-12 pb-16 relative z-10 mt-10">
+        <div class="flex items-center gap-4 mb-8 pt-10">
+            <h3 class="text-3xl font-bold text-white tracking-tight">Bölümler</h3>
+            <div class="flex items-center bg-white/10 px-4 py-1.5 rounded-md text-sm cursor-pointer border border-white/10 backdrop-blur-md">
+                <span class="font-bold">Stranger Things 5</span>
                 <i data-lucide="chevron-down" class="ml-2 w-4 h-4"></i>
             </div>
         </div>
 
-        <!-- Scroll Wrapper -->
-        <div class="episodes-wrapper">
-            <!-- Sol Kapsül Ok -->
-            <div id="scroll-left" class="scroll-arrow arrow-left">
+        <div class="relative px-12">
+            <div id="scroll-left" class="scroll-arrow left-0">
                 <i data-lucide="chevron-left" class="w-6 h-6 text-white"></i>
             </div>
-
-            <div id="episodes-container" class="episodes-scroll">
-                <!-- JavaScript ile doldurulur -->
+            <div id="episodes-container" class="flex overflow-x-auto gap-6 py-4 scroll-smooth no-scrollbar" style="scrollbar-width: none;">
+                <!-- JS ile dolacak -->
             </div>
-
-            <!-- Sağ Kapsül Ok -->
-            <div id="scroll-right" class="scroll-arrow arrow-right">
+            <div id="scroll-right" class="scroll-arrow right-0">
                 <i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
             </div>
         </div>
     </div>
 
-    <footer class="max-w-4xl mx-auto py-12 px-4 text-gray-500 text-sm">
+    <!-- Daha Fazlası -->
+    <div id="more-section" class="px-4 md:px-12 pb-24 relative z-10">
+        <h3 class="text-3xl font-bold text-white mb-8 tracking-tight">Daha Fazla Ayrıntı</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="info-card p-8">
+                <span class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">Tür</span>
+                <div class="text-white font-semibold mb-6 text-sm">Bilim Kurgu, Gençlik, Korku Temalı, Fan-Fic</div>
+                <span class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">Tema</span>
+                <div class="text-white font-semibold mb-6 text-sm">Tehditkâr, Nostaljik, Unutulmayan Müzikler, Psişik Güçler</div>
+                <span class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">Hakkında</span>
+                <div class="text-white font-semibold text-sm">Netflix ile bir resmi bağı yoktur.</div>
+            </div>
+            <div class="info-card p-8">
+                <span class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">Bölüm Sayısı</span>
+                <div class="text-white font-semibold text-sm">Bölüm sayısı bilgisi yukarıdadır. 1 Şubat'ta 9. Bölüm (Final) gelecektir.</div>
+            </div>
+            <div class="info-card p-8">
+                <span class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">Karakterler</span>
+                <div class="text-white font-semibold leading-relaxed text-sm italic">Dustin, Lucas, Will, Mike, Max, Eleven, Joyce, Hopper, Murray, Steve, Robin, Nancy, Jonathan, Holly, Derek, Dr.Kay, Akers, Vecna/Henry/001</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="max-w-4xl mx-auto py-16 px-4 text-gray-500 text-sm relative z-10 border-t border-white/5">
          <div class="flex gap-4 mb-4 text-xl items-center">
              <span class="font-bold text-blue-400 italic">HV Max Books</span>
          </div>
-         <div>2026 HV Max Books. MIT License</div>
+         <div class="opacity-60 font-medium">© 2026 HV Max Books. MIT License</div>
     </footer>
 
     <script>
         lucide.createIcons();
-
         const video = document.getElementById('hero-video');
         const muteBtn = document.getElementById('mute-btn');
         const muteIcon = document.getElementById('mute-icon');
@@ -290,8 +391,7 @@
         muteBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             video.muted = !video.muted;
-            const newIcon = video.muted ? 'volume-x' : 'volume-2';
-            muteIcon.setAttribute('data-lucide', newIcon);
+            muteIcon.setAttribute('data-lucide', video.muted ? 'volume-x' : 'volume-2');
             lucide.createIcons();
         });
 
@@ -306,45 +406,34 @@
             { id: 8, title: "8. Bölüm: Son Direniş", duration: "43 Sayfa", description: "Vecna bildiğimiz dünyayı yok etmeye hazırlanırken ekip, birleşmeyi yavaşlatarak savaşa hazırlanır.", image: "https://m.media-amazon.com/images/M/MV5BMjg2OGVjNmUtZTcxYS00ZTczLWJjOGMtYmY2ZDBlYzU5YWJlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" }
         ];
 
-        const container = document.getElementById('episodes-container');
+       const container = document.getElementById('episodes-container');
         episodes.forEach(ep => {
             const card = document.createElement('div');
-            card.className = "episode-card";
+            card.className = "episode-card flex-none w-[320px] cursor-pointer";
             card.innerHTML = `
                 <div class="relative">
-                    <img src="${ep.image}" alt="${ep.title}">
+                    <img src="${ep.image}" alt="${ep.title}" class="w-full h-44 object-cover">
                     <div class="duration-badge">${ep.duration}</div>
                     <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
                          <i data-lucide="play" class="w-12 h-12 text-white fill-white"></i>
                     </div>
                 </div>
-                <div class="p-4">
-                    <h4 class="font-bold text-white text-lg mb-2">${ep.id}. ${ep.title}</h4>
-                    <p class="text-xs text-gray-400 line-clamp-4 leading-relaxed">${ep.description}</p>
+                <div class="p-5">
+                    <h4 class="font-bold text-white text-sm mb-2">${ep.id}. ${ep.title}</h4>
+                    <p class="text-[10px] text-gray-400 line-clamp-2 font-medium">${ep.description}</p>
                 </div>
             `;
-            card.onclick = () => {
-                window.location.href = `bolum${ep.id}.html`;
-            };
+            card.onclick = () => { window.location.href = `bolum${ep.id}.html`; };
             container.appendChild(card);
         });
         
-        // Navigasyon Mantığı
-        const scrollLeftBtn = document.getElementById('scroll-left');
-        const scrollRightBtn = document.getElementById('scroll-right');
-
-        scrollLeftBtn.onclick = () => {
-            container.scrollBy({ left: -600, behavior: 'smooth' });
-        };
-
-        scrollRightBtn.onclick = () => {
-            container.scrollBy({ left: 600, behavior: 'smooth' });
-        };
+        document.getElementById('scroll-left').onclick = () => { container.scrollBy({ left: -660, behavior: 'smooth' }); };
+        document.getElementById('scroll-right').onclick = () => { container.scrollBy({ left: 660, behavior: 'smooth' }); };
 
         lucide.createIcons();
     </script>
 </body>
 </html>
-</html>
+
 
 
