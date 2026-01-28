@@ -32,7 +32,7 @@
             background-image: url('https://cdn.pixabay.com/photo/2022/10/14/20/10/way-7522066_1280.jpg');
             background-size: cover;
             background-position: center;
-            filter: blur(45px) brightness(0.25);
+            filter: blur(45px) brightness(0.2);
             transform: scale(1.1);
         }
 
@@ -83,22 +83,22 @@
             font-style: italic;
         }
 
-        /* Navigasyon Kapsülü - Fixed */
+        /* --- YENİ: ÇOK ŞEFFAF VE BELİRGİN ÇERÇEVELİ NAV BAR --- */
         .pill-navbar {
             position: fixed;
             top: 25px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(255, 255, 255, 0.03); /* Çok şeffaf */
             padding: 12px 40px;
             border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Belirgin ama ince çerçeve */
             display: flex;
             align-items: center;
             gap: 30px;
             z-index: 100;
             backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .pill-navbar a {
@@ -179,16 +179,16 @@
             opacity: 0.95;
         }
 
-        /* YENİ: Görseldeki Seri Bilgi Kartı */
+        /* --- YENİ: ŞEFFAF VE ÇERÇEVELİ BİLGİ KARTI --- */
         .series-overview-card {
             width: 95%;
             max-width: 1400px;
             margin: 2rem auto;
-            background: rgba(255, 255, 255, 0.04);
+            background-color: rgba(255, 255, 255, 0.03); /* Çok şeffaf */
             backdrop-filter: blur(12px);
             border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Belirgin çerçeve */
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 2rem;
@@ -208,29 +208,30 @@
             z-index: 20;
         }
 
-        /* Kart Stilleri */
+        /* --- YENİ: ŞEFFAF VE ÇERÇEVELİ BÖLÜM VE AYRINTI KARTLARI --- */
         .episode-card, .info-card {
-            background: rgba(255, 255, 255, 0.04);
+            background-color: rgba(255, 255, 255, 0.02); /* Aşırı şeffaf */
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Belirgin minik çerçeve */
         }
 
         .episode-card:hover, .info-card:hover {
             transform: scale(1.03) translateY(-4px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.25);
+            background-color: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
+        /* --- YENİ: ŞEFFAF VE ÇERÇEVELİ OKLAR --- */
         .scroll-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             width: 36px;
             height: 110px;
-            background: rgba(255, 255, 255, 0.08);
+            background-color: rgba(255, 255, 255, 0.03); /* Çok şeffaf */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -239,11 +240,15 @@
             transition: all 0.2s ease;
             border-radius: 9999px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Belirgin ince çerçeve */
             opacity: 0.6;
         }
 
-        .scroll-arrow:hover { background: rgba(255, 255, 255, 0.2); opacity: 1; }
+        .scroll-arrow:hover { 
+            background-color: rgba(255, 255, 255, 0.1); 
+            opacity: 1; 
+            border-color: rgba(255, 255, 255, 0.5);
+        }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -293,10 +298,10 @@
             </div>
         </div>
 
-        <!-- YENİ BİLGİ BLOĞU -->
+        <!-- Seri Bilgi Bloğu -->
         <div class="series-overview-card">
             <div>
-                <h1 class="text-3xl font-bold mb-3">Stranger Things</h1>
+                <h1 class="text-3xl font-bold mb-3 tracking-tight">Stranger Things</h1>
                 <div class="flex items-center gap-3 text-sm font-medium text-gray-400 mb-4">
                     <span>2025</span>
                     <span>•</span>
@@ -306,7 +311,7 @@
                     <span>•</span>
                     <span>Bilim Kurgu</span>
                     <span>•</span>
-                    <span>5.Sezon (Fanfic) siteden okunulabilir.</span>
+                    <span class="text-purple-400">5.Sezon (Fanfic) Yayında</span>
                 </div>
                 <p class="text-white/80 leading-relaxed text-sm md:text-base max-w-2xl">
                     Ufak bir kasabada küçük bir çocuk kaybolunca, gizli deneyler, korkutucu doğaüstü güçler ve tuhaf bir küçük kızın da parçası olduğu bir gizem ortaya çıkar.
@@ -315,11 +320,11 @@
             <div class="border-l border-white/10 pl-8 hidden md:block">
                 <div class="mb-4">
                     <span class="text-gray-500 text-xs font-bold block mb-1">Ana Karakterler:</span>
-                    <p class="text-sm text-white/90">Joyce,Hopper,Eleven,Dustin,Lucas,Will,Mike,Max</p>
+                    <p class="text-sm text-white/90">Joyce, Hopper, Eleven, Dustin, Lucas, Will, Mike, Max</p>
                 </div>
                 <div>
-                    <span class="text-gray-500 text-xs font-bold block mb-1">Yaratıcılar:</span>
-                    <p class="text-sm text-white/90">The Duffer Brothers. 5.Sezon site yaratıcısı tarafından yeniden yazılıp telif sorunu olmayacak şekilde düzenlenmiştir. Diğer 4 sezonun scripti mevcut değildir. Reklam değildir ve Netflix ile bir bağ yoktur. </p>
+                    <span class="text-gray-500 text-xs font-bold block mb-1">Bilgilendirme:</span>
+                    <p class="text-[11px] leading-tight text-white/70 italic">5.Sezon site yaratıcısı tarafından yeniden yazılmıştır. Diğer 4 sezonun scripti mevcut değildir. Netflix ile resmi bir bağ yoktur.</p>
                 </div>
             </div>
         </div>
@@ -340,12 +345,16 @@
         </div>
 
         <div class="relative px-12">
+            <!-- Sol Ok -->
             <div id="scroll-left" class="scroll-arrow left-0">
                 <i data-lucide="chevron-left" class="w-6 h-6 text-white"></i>
             </div>
+            
             <div id="episodes-container" class="flex overflow-x-auto gap-6 py-4 scroll-smooth no-scrollbar" style="scrollbar-width: none;">
                 <!-- JS ile dolacak -->
             </div>
+            
+            <!-- Sağ Ok -->
             <div id="scroll-right" class="scroll-arrow right-0">
                 <i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
             </div>
@@ -362,15 +371,15 @@
                 <span class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">Tema</span>
                 <div class="text-white font-semibold mb-6 text-sm">Tehditkâr, Nostaljik, Unutulmayan Müzikler, Psişik Güçler</div>
                 <span class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">Hakkında</span>
-                <div class="text-white font-semibold text-sm">Netflix ile bir resmi bağı yoktur.</div>
+                <div class="text-white font-semibold text-sm">Bu bir hayran çalışmasıdır.</div>
             </div>
             <div class="info-card p-8">
                 <span class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">Bölüm Sayısı</span>
-                <div class="text-white font-semibold text-sm">Bölüm sayısı bilgisi yukarıdadır. 1 Şubat'ta 9. Bölüm (Final) gelecektir.</div>
+                <div class="text-white font-semibold text-sm">9. Bölüm (Final) 1 Şubat'ta yayınlanacaktır.</div>
             </div>
             <div class="info-card p-8">
                 <span class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">Karakterler</span>
-                <div class="text-white font-semibold leading-relaxed text-sm italic">Dustin, Lucas, Will, Mike, Max, Eleven, Joyce, Hopper, Murray, Steve, Robin, Nancy, Jonathan, Holly, Derek, Dr.Kay, Akers, Vecna/Henry/001</div>
+                <div class="text-white font-semibold leading-relaxed text-sm italic">Dustin, Lucas, Will, Mike, Max, Eleven, Joyce, Hopper, Murray, Steve, Robin, Nancy, Jonathan, Holly, Derek, Akers, Vecna</div>
             </div>
         </div>
     </div>
@@ -395,26 +404,75 @@
             lucide.createIcons();
         });
 
-         const episodes = [
-            { id: 1, title: "1. Bölüm: Arayış", duration: "22 Sayfa", description: "Kasım 1987. Ekip Baş Aşağı Dünya'ya ulaşıp Vecna'nın saklandığı yeri bulmak için askerî kontrol noktasından kaçar.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUm2gVEhuhzTZIalBaHnDQKzWvEUzIyVXQkmi_av6Zyojb-pYfnZGCXp_mTbyZOckdY_GiDGCWIB-sjIFRCYAwxGF1W77tokOOuKgMO4RwKrTHHKE1H_47pc.jpg?r=f18" },
-            { id: 2, title: "2. Bölüm: Holly'nin Kayboluşu", duration: "16 Sayfa", description: "Wheeler'ların evine yapılan saldırı sonrası Mike ve Nancy sır saklamanın bedeliyle yüzleşir.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABR2QvLZzCGs678t3Zd8OD4gwErxuLcb3hdm5X1bQa5JVf1v7KXv4PVORHjNoEyUlT3_hdXIF6nEDJp0xDIaxxvE1116sf7jt_WdJ8fEXSu4-CZzdlkHCn0ns.jpg?r=4c0" },
-            { id: 3, title: "3. Bölüm: Turnbow Tuzağı", duration: "8 Sayfa", description: "Vecna'nın bir sonraki hamlesi hakkında Will'in ipucu, ekibe bir tuzak kurma fırsatı verir.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABeRxgpBo4oOYlKWcaqO2G1vqXs2r7qgO32smy2BlYbP-RnTUsvVQk2yxKdcvO0yc1Ogakvd0RH9__NgQH0m70odOdbQm-iMRW4ye5uR320D6Y_cMfkNuXTeE.jpg?r=0a8" },
-            { id: 4, title: "4. Bölüm: Büyücü", duration: "19 Sayfa", description: "Ordu kasabadaki kontrolünü sıkılaştırır. Mike, Lucas ve Robin cesaret dolu bir kaçış planlar.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUI-9Fg7Nn7z9FNNRKt6c-iOZwz6rFmamX984CfbL-42vT0cSsn-J2UHvVBQPXLSAGLVAPgbRfdvqlPutM6SD514kHzNhW8ErGAsoZltXkhCUNbn7ZKWwWMZ.jpg?r=5db" },
-            { id: 5, title: "5. Bölüm: Elektroşok", duration: "28 Sayfa", description: "Ekip, Will'in sürü bilincini tekrar ele geçirmesini sağlamak için heyecan verici bir plan yapar.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABcFKzv5BBu-4BvURuUpdQqsdJ5igOyY8zSyu5CDSB2LV1rpo89eNWlK4YTocTqm1hnv6rr4SEsc2lg_E3UvFneF4KXOSKShPuZ9iiR5zjG9TC70TKr5dOR2T.jpg?r=3a9" },
-            { id: 6, title: "6. Bölüm: Camazotz'dan Kaçış", duration: "28 Sayfa", description: "Holly ve Max Vecna'nın zihninden kaçmaya çalışırken El, Will'in zihnine girmenin yolunu bulur.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABX0cVlCtMBlxRhtkQLjCDRehJkuxD9gSQ8PAXs17i_gXtiDRJjv9pd8CisRm1oJzAaGBaOZSEti3c2qDi9FXYlPqSH_MNwOhT7Am4q6xIvi0VfC02y_Sa3ut.jpg?r=e0d" },
-            { id: 7, title: "7. Bölüm: Köprü", duration: "24 Sayfa", description: "Will'in ortadan kayboluşunun yıl dönümünde ekip yeniden bir araya gelir ve büyük savaşa hazırlanır.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABSb7m5Qy_VgAd6wkWFYuXToXvg-ys2R876PZQtOkGrjlob_j4E8iaZtliTMl5XhxXVdokgDb_xNaVp5o8oyyQ6dVlN9ji1WlowisLXyfptj9yOKy1PRlLSNX.jpg?r=b20" },
-            { id: 8, title: "8. Bölüm: Son Direniş", duration: "43 Sayfa", description: "Vecna bildiğimiz dünyayı yok etmeye hazırlanırken ekip, birleşmeyi yavaşlatarak savaşa hazırlanır.", image: "https://m.media-amazon.com/images/M/MV5BMjg2OGVjNmUtZTcxYS00ZTczLWJjOGMtYmY2ZDBlYzU5YWJlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" }
+        const episodes = [
+            { 
+                id: 1, 
+                title: "1. Bölüm: Arayış", 
+                duration: "22 Sayfa", 
+                description: "Kasım 1987. Ekip Baş Aşağı Dünya'ya ulaşıp Vecna'nın saklandığı yeri bulmak için askerî kontrol noktasından kaçar.", 
+                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUm2gVEhuhzTZIalBaHnDQKzWvEUzIyVXQkmi_av6Zyojb-pYfnZGCXp_mTbyZOckdY_GiDGCWIB-sjIFRCYAwxGF1W77tokOOuKgMO4RwKrTHHKE1H_47pc.jpg?r=f18" 
+            },
+            { 
+                id: 2, 
+                title: "2. Bölüm: Holly'nin Kayboluşu", 
+                duration: "16 Sayfa", 
+                description: "Wheeler'ların evine yapılan saldırı sonrası Mike ve Nancy sır saklamanın bedeliyle yüzleşir.", 
+                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABR2QvLZzCGs678t3Zd8OD4gwErxuLcb3hdm5X1bQa5JVf1v7KXv4PVORHjNoEyUlT3_hdXIF6nEDJp0xDIaxxvE1116sf7jt_WdJ8fEXSu4-CZzdlkHCn0ns.jpg?r=4c0" 
+            },
+            { 
+                id: 3, 
+                title: "3. Bölüm: Turnbow Tuzağı", 
+                duration: "8 Sayfa", 
+                description: "Vecna'nın bir sonraki hamlesi hakkında Will'in ipucu, ekibe bir tuzak kurma fırsatı verir.", 
+                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABeRxgpBo4oOYlKWcaqO2G1vqXs2r7qgO32smy2BlYbP-RnTUsvVQk2yxKdcvO0yc1Ogakvd0RH9__NgQH0m70odOdbQm-iMRW4ye5uR320D6Y_cMfkNuXTeE.jpg?r=0a8" 
+            },
+            { 
+                id: 4, 
+                title: "4. Bölüm: Büyücü", 
+                duration: "19 Sayfa", 
+                description: "Ordu kasabadaki kontrolünü sıkılaştırır. Mike, Lucas ve Robin cesaret dolu bir kaçış planlar.", 
+                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUI-9Fg7Nn7z9FNNRKt6c-iOZwz6rFmamX984CfbL-42vT0cSsn-J2UHvVBQPXLSAGLVAPgbRfdvqlPutM6SD514kHzNhW8ErGAsoZltXkhCUNbn7ZKWwWMZ.jpg?r=5db" 
+            },
+            { 
+                id: 5, 
+                title: "5. Bölüm: Elektroşok", 
+                duration: "28 Sayfa", 
+                description: "Ekip, Will'in sürü bilincini tekrar ele geçirmesini sağlamak için heyecan verici bir plan yapar.", 
+                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABcFKzv5BBu-4BvURuUpdQqsdJ5igOyY8zSyu5CDSB2LV1rpo89eNWlK4YTocTqm1hnv6rr4SEsc2lg_E3UvFneF4KXOSKShPuZ9iiR5zjG9TC70TKr5dOR2T.jpg?r=3a9" 
+            },
+            { 
+                id: 6, 
+                title: "6. Bölüm: Camazotz'dan Kaçış", 
+                duration: "28 Sayfa", 
+                description: "Holly ve Max Vecna'nın zihninden kaçmaya çalışırken El, Will'in zihnine girmenin yolunu bulur.", 
+                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABX0cVlCtMBlxRhtkQLjCDRehJkuxD9gSQ8PAXs17i_gXtiDRJjv9pd8CisRm1oJzAaGBaOZSEti3c2qDi9FXYlPqSH_MNwOhT7Am4q6xIvi0VfC02y_Sa3ut.jpg?r=e0d" 
+            },
+            { 
+                id: 7, 
+                title: "7. Bölüm: Köprü", 
+                duration: "24 Sayfa", 
+                description: "Will'in ortadan kayboluşunun yıl dönümünde ekip yeniden bir araya gelir ve büyük savaşa hazırlanır.", 
+                image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABSb7m5Qy_VgAd6wkWFYuXToXvg-ys2R876PZQtOkGrjlob_j4E8iaZtliTMl5XhxXVdokgDb_xNaVp5o8oyyQ6dVlN9ji1WlowisLXyfptj9yOKy1PRlLSNX.jpg?r=b20" 
+            },
+            { 
+                id: 8, 
+                title: "8. Bölüm: Son Direniş", 
+                duration: "43 Sayfa", 
+                description: "Vecna bildiğimiz dünyayı yok etmeye hazırlanırken ekip, birleşmeyi yavaşlatarak savaşa hazırlanır.", 
+                image: "https://m.media-amazon.com/images/M/MV5BMjg2OGVjNmUtZTcxYS00ZTczLWJjOGMtYmY2ZDBlYzU5YWJlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" 
+            }
         ];
 
        const container = document.getElementById('episodes-container');
         episodes.forEach(ep => {
             const card = document.createElement('div');
-            card.className = "episode-card flex-none w-[320px] cursor-pointer";
+            card.className = "episode-card flex-none w-[320px] cursor-pointer group";
             card.innerHTML = `
-                <div class="relative">
-                    <img src="${ep.image}" alt="${ep.title}" class="w-full h-44 object-cover">
+                <div class="relative overflow-hidden">
+                    <img src="${ep.image}" alt="${ep.title}" class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <!-- ROZET (DURATION BADGE) -->
                     <div class="duration-badge">${ep.duration}</div>
-                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                          <i data-lucide="play" class="w-12 h-12 text-white fill-white"></i>
                     </div>
                 </div>
@@ -434,6 +492,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
