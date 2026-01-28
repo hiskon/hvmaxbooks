@@ -19,7 +19,7 @@
         }
 
         .navbar-gradient {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
         }
 
         /* Ekran kapsayıcısı */
@@ -28,13 +28,12 @@
             width: 95%;
             max-width: 1400px;
             margin: 0 auto;
-            /* Derinlik hissi için gölge */
             filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.7));
             border-radius: 40px; 
             overflow: hidden;
         }
 
-        /* Video Paneli - İçe Kavisli (Concave) ve Yumuşak Köşeli */
+        /* Video Paneli - İçe Kavisli (Concave) */
         .screen-panel {
             position: relative;
             width: 100%;
@@ -43,8 +42,6 @@
             z-index: 5;
             overflow: hidden;
             border-radius: 40px; 
-            
-            /* Alt kenarı içe doğru (yukarı) kavisli yapan maskeleme */
             clip-path: polygon(
                 0% 0%, 100% 0%, 
                 100% 100%, 
@@ -59,12 +56,11 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding-top: 80px;
+            padding-top: 100px;
             padding-bottom: 60px;
             background: radial-gradient(circle at center, #1a1a1a 0%, #141414 100%);
         }
 
-        /* Video Üzerindeki Logo - str.png için ayarlandı */
         .hero-logo {
             position: absolute;
             bottom: 22%; 
@@ -77,20 +73,122 @@
             opacity: 0.95;
         }
 
-        /* Scrollbar Ayarları */
-        ::-webkit-scrollbar {
-            width: 8px;
+        /* Navbar Disclaimer Yazısı */
+        .nav-disclaimer {
+            font-size: 9px;
+            line-height: 1.2;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.25);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            padding-left: 15px;
+            margin-left: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
         }
-        ::-webkit-scrollbar-track {
-            background: #141414;
+
+        /* Final Yazısı Stili */
+        .final-announcement {
+            margin-top: 2.5rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: #ffffff;
+            border-left: 4px solid #e50914; 
+            padding-left: 1.5rem;
+            opacity: 0.9;
+            text-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+            z-index: 20;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
+
+        /* Yatay Bölüm Kartları Stili */
+        .episodes-wrapper {
+            position: relative;
+            padding: 0 40px; /* Oklar için kenar boşluğu */
+        }
+
+        .episodes-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Firefox */
+        }
+        .episodes-scroll::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .episode-card {
+            flex: 0 0 300px;
+            background: #1f1f1f;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, background 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .episode-card:hover {
+            transform: scale(1.05);
+            background: #2a2a2a;
+            z-index: 10;
+        }
+
+        .episode-card img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+        }
+
+        .duration-badge {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 8px;
             border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #444;
+
+        /* YENİ: Görsellerdeki Kapsül Tasarımlı Navigasyon Okları */
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 100px; /* Dikey uzun yapı */
+            background: #2a2a2a; /* Görseldeki koyu gri tonu */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 40;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease, opacity 0.3s ease;
+            border-radius: 9999px; /* Tam kapsül şekli */
+            border: 1px solid rgba(255,255,255,0.05);
+            opacity: 0.6;
         }
+
+        .scroll-arrow:hover {
+            background: #3a3a3a;
+            opacity: 1;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .scroll-arrow:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .arrow-left { left: 0; }
+        .arrow-right { right: 0; }
+
+        /* Scrollbar Ayarları */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #141414; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
     </style>
 </head>
 <body>
@@ -100,21 +198,14 @@
         <div class="flex items-center gap-8">
             <div class="flex items-center cursor-pointer select-none">
                 <span class="text-2xl font-black tracking-tighter bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent italic">
-                    HV Max
-                </span>
-                <span class="text-2xl font-serif text-purple-600 ml-1.5 font-bold italic">
-                    Books
+                    HV Max Books
                 </span>
             </div>
-            <div class="hidden md:flex gap-5 text-sm text-gray-300 font-medium">
+            <div class="hidden md:flex items-center gap-5 text-sm text-gray-300 font-medium">
                 <span class="text-white cursor-pointer underline underline-offset-8 decoration-red-600">Ana Sayfa</span>
                 <span class="hover:text-gray-300 cursor-pointer">Kitaplar</span>         
                 <span class="hover:text-gray-300 cursor-pointer">Listem</span>
-            </div>
-        </div>
-
-        
-                <!-- Navbar Disclaimer (Listem'in Sağında) -->
+                
                 <div class="nav-disclaimer">
                     BU BİR FAN SİTESİDİR. NETFLIX İLE BİR RESMİ BAĞI YOKTUR.<br>
                     FANFICTION BÖLÜMLERDİR.
@@ -131,8 +222,6 @@
         </div>
     </nav>
 
-    </nav>
-
     <!-- Hero Section -->
     <div class="hero-section">
         <div class="screen-container">
@@ -141,11 +230,8 @@
                     <source src="Stranger Things izlemenizi bekliyor Netflix Resmi Sitesi.mp4" type="video/mp4">
                 </video>
                 
-                <!-- Yerel görsel str.png buraya eklendi -->
-                <img src="str.png" 
-                     alt="Stranger Things Logo" 
-                     class="hero-logo"
-                     onerror="this.style.display='none'">
+                <!-- str.png yerel görseli -->
+                <img src="str.png" alt="Stranger Things Logo" class="hero-logo" onerror="this.style.display='none'">
 
                 <!-- Ses Kontrol Butonu -->
                 <button id="mute-btn" class="absolute bottom-12 right-10 border border-white/30 rounded-full p-3 bg-black/60 cursor-pointer hover:bg-black/80 transition z-20">
@@ -153,24 +239,45 @@
                 </button>
             </div>
         </div>
+
+        <div class="final-announcement">
+           Final 1 Şubat'ta
+        </div>
     </div>
 
     <!-- Bölümler Bölümü -->
     <div class="px-4 md:px-12 pb-20 relative z-10 bg-[#141414] mt-20">
-        <h3 class="text-2xl font-bold text-white py-6 border-b border-gray-800 flex items-center gap-2">
-            <i data-lucide="layers" class="w-6 h-6 text-purple-500"></i> Bölümler
-        </h3>
-        <div id="episodes-container" class="flex flex-col">
-            <!-- JavaScript ile doldurulur -->
+        <div class="flex items-center gap-4 mb-8">
+            <h3 class="text-3xl font-bold text-white">Bölümler</h3>
+            <div class="flex items-center bg-[#333] px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-[#444] transition border border-white/10">
+                <span>Stranger Things 5</span>
+                <i data-lucide="chevron-down" class="ml-2 w-4 h-4"></i>
+            </div>
+        </div>
+
+        <!-- Scroll Wrapper -->
+        <div class="episodes-wrapper">
+            <!-- Sol Kapsül Ok -->
+            <div id="scroll-left" class="scroll-arrow arrow-left">
+                <i data-lucide="chevron-left" class="w-6 h-6 text-white"></i>
+            </div>
+
+            <div id="episodes-container" class="episodes-scroll">
+                <!-- JavaScript ile doldurulur -->
+            </div>
+
+            <!-- Sağ Kapsül Ok -->
+            <div id="scroll-right" class="scroll-arrow arrow-right">
+                <i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
+            </div>
         </div>
     </div>
 
     <footer class="max-w-4xl mx-auto py-12 px-4 text-gray-500 text-sm">
          <div class="flex gap-4 mb-4 text-xl items-center">
-             <span class="font-bold text-blue-400 italic">HV Max</span>
-             <span class="font-serif text-purple-600 italic">Books</span>
+             <span class="font-bold text-blue-400 italic">HV Max Books</span>
          </div>
-         <div>© 2026 HV Max Books. Tüm hakları saklıdır.</div>
+         <div>2026 HV Max Books. MIT License</div>
     </footer>
 
     <script>
@@ -189,41 +296,55 @@
         });
 
          const episodes = [
-            { id: 1, title: "1. Bölüm: Arayış", duration: "22 Sayfa", description: "Kasım 1987. Ekip Baş Aşağı Dünya'ya ulaşıp Vecna'nın saklandığı yeri bulmak için askerî kontrol noktasından kaçmayı başarır, ancak çok yakınlarındaki bir tehdidi gözden kaçırırlar.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUm2gVEhuhzTZIalBaHnDQKzWvEUzIyVXQkmi_av6Zyojb-pYfnZGCXp_mTbyZOckdY_GiDGCWIB-sjIFRCYAwxGF1W77tokOOuKgMO4RwKrTHHKE1H_47pc.jpg?r=f18" },
-            { id: 2, title: "2. Bölüm: Holly Wheeler'ın Kayboluşu", duration: "16 Sayfa", description: "Wheeler'ların evine yapılan vahşi saldırının ardından Mike ve Nancy sır saklamanın bedeliyle yüzleşmek zorunda kalırken, El ve Hopper bir kurtarma operasyonuna girişir.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABR2QvLZzCGs678t3Zd8OD4gwErxuLcb3hdm5X1bQa5JVf1v7KXv4PVORHjNoEyUlT3_hdXIF6nEDJp0xDIaxxvE1116sf7jt_WdJ8fEXSu4-CZzdlkHCn0ns.jpg?r=4c0" },
-            { id: 3, title: "3. Bölüm: Turnbow Tuzağı", duration: "8 Sayfa", description: "Vecna'nın bir sonraki hamlesi hakkında Will'in elde ettiği benzersiz ipucu, ekibe bir tuzak kurma fırsatı verir. Holly yeni ortamını keşfetmeye çalışır.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABeRxgpBo4oOYlKWcaqO2G1vqXs2r7qgO32smy2BlYbP-RnTUsvVQk2yxKdcvO0yc1Ogakvd0RH9__NgQH0m70odOdbQm-iMRW4ye5uR320D6Y_cMfkNuXTeE.jpg?r=0a8" },
-            { id: 4, title: "4. Bölüm: Büyücü", duration: "19 Sayfa", description: "Ordu kasabadaki kontrolünü sıkılaştırır. Mike, Lucas ve Robin cesaret dolu bir kaçış planlar. El, düşmanla karşı karşıya gelir.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUI-9Fg7Nn7z9FNNRKt6c-iOZwz6rFmamX984CfbL-42vT0cSsn-J2UHvVBQPXLSAGLVAPgbRfdvqlPutM6SD514kHzNhW8ErGAsoZltXkhCUNbn7ZKWwWMZ.jpg?r=5db" }
+            { id: 1, title: "1. Bölüm: Arayış", duration: "22 Sayfa", description: "Kasım 1987. Ekip Baş Aşağı Dünya'ya ulaşıp Vecna'nın saklandığı yeri bulmak için askerî kontrol noktasından kaçar.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUm2gVEhuhzTZIalBaHnDQKzWvEUzIyVXQkmi_av6Zyojb-pYfnZGCXp_mTbyZOckdY_GiDGCWIB-sjIFRCYAwxGF1W77tokOOuKgMO4RwKrTHHKE1H_47pc.jpg?r=f18" },
+            { id: 2, title: "2. Bölüm: Holly'nin Kayboluşu", duration: "16 Sayfa", description: "Wheeler'ların evine yapılan saldırı sonrası Mike ve Nancy sır saklamanın bedeliyle yüzleşir.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABR2QvLZzCGs678t3Zd8OD4gwErxuLcb3hdm5X1bQa5JVf1v7KXv4PVORHjNoEyUlT3_hdXIF6nEDJp0xDIaxxvE1116sf7jt_WdJ8fEXSu4-CZzdlkHCn0ns.jpg?r=4c0" },
+            { id: 3, title: "3. Bölüm: Turnbow Tuzağı", duration: "8 Sayfa", description: "Vecna'nın bir sonraki hamlesi hakkında Will'in ipucu, ekibe bir tuzak kurma fırsatı verir.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABeRxgpBo4oOYlKWcaqO2G1vqXs2r7qgO32smy2BlYbP-RnTUsvVQk2yxKdcvO0yc1Ogakvd0RH9__NgQH0m70odOdbQm-iMRW4ye5uR320D6Y_cMfkNuXTeE.jpg?r=0a8" },
+            { id: 4, title: "4. Bölüm: Büyücü", duration: "19 Sayfa", description: "Ordu kasabadaki kontrolünü sıkılaştırır. Mike, Lucas ve Robin cesaret dolu bir kaçış planlar.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUI-9Fg7Nn7z9FNNRKt6c-iOZwz6rFmamX984CfbL-42vT0cSsn-J2UHvVBQPXLSAGLVAPgbRfdvqlPutM6SD514kHzNhW8ErGAsoZltXkhCUNbn7ZKWwWMZ.jpg?r=5db" },
+            { id: 5, title: "5. Bölüm: Elektroşok", duration: "28 Sayfa", description: "Ekip, Will'in sürü bilincini tekrar ele geçirmesini sağlamak için heyecan verici bir plan yapar.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABcFKzv5BBu-4BvURuUpdQqsdJ5igOyY8zSyu5CDSB2LV1rpo89eNWlK4YTocTqm1hnv6rr4SEsc2lg_E3UvFneF4KXOSKShPuZ9iiR5zjG9TC70TKr5dOR2T.jpg?r=3a9" },
+            { id: 6, title: "6. Bölüm: Camazotz'dan Kaçış", duration: "28 Sayfa", description: "Holly ve Max Vecna'nın zihninden kaçmaya çalışırken El, Will'in zihnine girmenin yolunu bulur.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABX0cVlCtMBlxRhtkQLjCDRehJkuxD9gSQ8PAXs17i_gXtiDRJjv9pd8CisRm1oJzAaGBaOZSEti3c2qDi9FXYlPqSH_MNwOhT7Am4q6xIvi0VfC02y_Sa3ut.jpg?r=e0d" },
+            { id: 7, title: "7. Bölüm: Köprü", duration: "24 Sayfa", description: "Will'in ortadan kayboluşunun yıl dönümünde ekip yeniden bir araya gelir ve büyük savaşa hazırlanır.", image: "https://occ-0-3467-1489.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABSb7m5Qy_VgAd6wkWFYuXToXvg-ys2R876PZQtOkGrjlob_j4E8iaZtliTMl5XhxXVdokgDb_xNaVp5o8oyyQ6dVlN9ji1WlowisLXyfptj9yOKy1PRlLSNX.jpg?r=b20" },
+            { id: 8, title: "8. Bölüm: Son Direniş", duration: "43 Sayfa", description: "Vecna bildiğimiz dünyayı yok etmeye hazırlanırken ekip, birleşmeyi yavaşlatarak savaşa hazırlanır.", image: "https://m.media-amazon.com/images/M/MV5BMjg2OGVjNmUtZTcxYS00ZTczLWJjOGMtYmY2ZDBlYzU5YWJlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" }
         ];
 
         const container = document.getElementById('episodes-container');
         episodes.forEach(ep => {
-            const div = document.createElement('div');
-            div.className = "flex items-center gap-5 p-5 border-b border-gray-800 hover:bg-[#222] transition cursor-pointer group";
-            div.innerHTML = `
-                <div class="text-2xl text-gray-500 font-bold w-6 text-center group-hover:text-purple-500 transition">${ep.id}</div>
-                <div class="relative w-40 h-24 shrink-0 rounded overflow-hidden shadow-md">
-                    <img src="${ep.image}" alt="${ep.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                        <i data-lucide="play" class="w-8 h-8 fill-white text-white"></i>
+            const card = document.createElement('div');
+            card.className = "episode-card";
+            card.innerHTML = `
+                <div class="relative">
+                    <img src="${ep.image}" alt="${ep.title}">
+                    <div class="duration-badge">${ep.duration}</div>
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                         <i data-lucide="play" class="w-12 h-12 text-white fill-white"></i>
                     </div>
                 </div>
-                <div class="flex-1">
-                    <div class="flex justify-between items-center mb-1">
-                        <h4 class="text-base font-bold text-gray-100 group-hover:text-white transition">${ep.title}</h4>
-                        <span class="text-base font-medium text-gray-100">${ep.duration}</span>
-                    </div>
-                    <p class="text-sm text-gray-400 leading-normal line-clamp-2 italic">${ep.description}</p>
+                <div class="p-4">
+                    <h4 class="font-bold text-white text-lg mb-2">${ep.id}. ${ep.title}</h4>
+                    <p class="text-xs text-gray-400 line-clamp-4 leading-relaxed">${ep.description}</p>
                 </div>
             `;
-            div.onclick = () => {
-                if (ep.id <= 4) window.location.href = `bolum${ep.id}.html`;
+            card.onclick = () => {
+                window.location.href = `bolum${ep.id}.html`;
             };
-            container.appendChild(div);
+            container.appendChild(card);
         });
-
         
+        // Navigasyon Mantığı
+        const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
+
+        scrollLeftBtn.onclick = () => {
+            container.scrollBy({ left: -600, behavior: 'smooth' });
+        };
+
+        scrollRightBtn.onclick = () => {
+            container.scrollBy({ left: 600, behavior: 'smooth' });
+        };
+
         lucide.createIcons();
     </script>
 </body>
 </html>
+</html>
+
 
